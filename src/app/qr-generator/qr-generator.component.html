@@ -1,0 +1,60 @@
+<div class="qr-generator">
+  <button class="create-qr-btn" (click)="openModal()">Create QR Code</button>
+
+  <!-- Modal Overlay -->
+  <div class="modal-overlay" *ngIf="showModal" (click)="closeModal()"></div>
+
+  <!-- Modal Content -->
+  <div class="modal" *ngIf="showModal">
+    <div class="modal-header">
+      <h2>Create QR Code</h2>
+      <button class="close-btn" (click)="closeModal()">&times;</button>
+    </div>
+
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="title">Title *</label>
+        <input
+          type="text"
+          id="title"
+          [(ngModel)]="title"
+          placeholder="Enter title"
+          required
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea
+          id="description"
+          [(ngModel)]="description"
+          placeholder="Enter description (optional)"
+          rows="3"
+        ></textarea>
+      </div>
+
+      <div class="qr-preview" [style.display]="qrCodeGenerated ? 'block' : 'none'">
+        <h3>QR Code Preview</h3>
+        <canvas #qrCanvas width="300" height="300"></canvas>
+      </div>
+
+      <div class="button-group">
+        <button
+          class="generate-btn"
+          (click)="generateQRCode()"
+          [disabled]="!title.trim()"
+        >
+          Generate QR Code
+        </button>
+
+        <button
+          class="print-btn"
+          (click)="printQRCode()"
+          [disabled]="!qrCodeGenerated"
+        >
+          Print QR Code
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
